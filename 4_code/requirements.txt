@@ -1,0 +1,9 @@
+PyYAML
+Jinja2>=3.1
+pypdf>=5.0
+Pillow>=10.0
+requests
+beautifulsoup4
+flask
+chromadb
+sentence-transformers

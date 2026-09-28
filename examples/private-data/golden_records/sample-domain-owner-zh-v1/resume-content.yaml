@@ -1,0 +1,15 @@
+language: zh
+template_family: domain
+headline: 垂直领域AI产品负责人
+candidate_name: 示例候选人
+pages:
+  - blocks:
+      - kind: summary
+        title: 简介
+        body: 完全虚构的垂直领域Golden Record示例。
+        bullets: []
+  - blocks:
+      - kind: project
+        title: 示例项目
+        body: 用于演示领域知识与AI系统的结合。
+        bullets: []

@@ -1,0 +1,29 @@
+# Private Resume Agent runtime and personal source material
+.resume-agent/
+2_knowledge/
+output/
+3_templates/design_references/
+3_templates/design_templates/
+3_templates/generic_materials/
+3_templates/golden_record/
+
+# Resume/document exports are private by default
+*.html
+*.pdf
+*.doc
+*.docx
+!examples/**/*.html
+
+# Credentials and local configuration
+.env
+.env.*
+*.pem
+*.key
+
+# Development artifacts
+.superpowers/
+.venv/
+tmp/
+__pycache__/
+*.py[cod]
+*.egg-info/

@@ -1,0 +1,15 @@
+language: zh
+template_family: general
+headline: AI产品负责人
+candidate_name: 示例候选人
+pages:
+  - blocks:
+      - kind: summary
+        title: 简介
+        body: 完全虚构的通用岗位Golden Record示例。
+        bullets: []
+  - blocks:
+      - kind: education
+        title: 教育
+        body: 示例大学
+        bullets: []

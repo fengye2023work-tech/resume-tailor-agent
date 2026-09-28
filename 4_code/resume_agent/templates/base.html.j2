@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ application.company }} - {{ application.role }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&amp;family=Outfit:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{--font-titles:'Outfit',{% if content.language == 'zh' %}'Microsoft YaHei','PingFang SC',{% endif %}'Arial',sans-serif;--font-body:'Manrope',{% if content.language == 'zh' %}'Microsoft YaHei','PingFang SC',{% endif %}'Arial',sans-serif;--paper:{{ layout.palette.paper }};--text-main:{{ layout.palette.text_main }};--text-muted:{{ layout.palette.text_muted }};--accent:{{ layout.palette.accent }};--border:{{ layout.palette.border }};--section-gap:{{ layout.spacing.section_gap_mm }}mm;--item-gap:{{ layout.spacing.item_gap_mm }}mm}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#f3f4f6;color:var(--text-main);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+@page{size:A4;margin:0}
+.resume-page{width:{{ layout.page.width_mm }}mm;height:{{ layout.page.height_mm }}mm;padding:{{ layout.page.page_1_padding_mm[0] }}mm {{ layout.page.page_1_padding_mm[1] }}mm {{ layout.page.page_1_padding_mm[2] }}mm {{ layout.page.page_1_padding_mm[3] }}mm;background:var(--paper);margin:8mm auto;overflow:hidden;page-break-after:always}
+.resume-page[data-page="2"]{padding:{{ layout.page.page_2_padding_mm[0] }}mm {{ layout.page.page_2_padding_mm[1] }}mm {{ layout.page.page_2_padding_mm[2] }}mm {{ layout.page.page_2_padding_mm[3] }}mm}.resume-page:last-of-type{page-break-after:auto}
+.top{display:grid;grid-template-columns:1.25fr .75fr;align-items:end;border-bottom:2px solid var(--text-main);padding-bottom:2.3mm;margin-bottom:5mm}
+.header-left h1{font-family:var(--font-titles);font-size:{{ layout.typography.identity_pt }}pt;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.12em;margin-bottom:1.2mm}
+.headline{font-family:var(--font-titles);font-size:{{ layout.typography.headline_pt }}pt;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;line-height:1.25}
+.header-right{text-align:right;font-size:7.9pt;line-height:1.45;color:var(--text-muted);font-style:italic;font-weight:300}
+.header-right span{display:block}.block{margin-bottom:var(--section-gap)}
+h2{font-family:var(--font-titles);font-size:{{ layout.typography.section_pt }}pt;font-weight:700;text-transform:uppercase;letter-spacing:.12em;border-bottom:2px solid var(--border);padding-bottom:1mm;margin-bottom:2.6mm;break-after:avoid}
+.summary-block{font-size:{{ layout.typography.summary_pt }}pt;line-height:1.54;text-align:justify;margin-bottom:5.2mm}
+.skills-container{display:grid;grid-template-columns:.54fr .46fr;gap:10mm;margin-bottom:5.5mm}
+.skill-column{min-width:0}.skill-column-title{font-family:var(--font-titles);font-size:9.2pt;font-weight:800;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);padding-bottom:1mm;margin-bottom:2.2mm}
+.skill-group{margin-bottom:2.8mm}.skill-subtitle{display:block;font-size:8.8pt;font-weight:800;margin-bottom:.3mm}.skill-content{display:block;font-size:8.65pt;line-height:1.42}
+.experience-item{margin-bottom:var(--item-gap);break-inside:avoid}.exp-header{display:flex;justify-content:space-between;align-items:baseline;gap:5mm;margin-bottom:1.2mm;break-after:avoid}.exp-title{display:block;font-family:var(--font-titles);font-size:9.7pt;font-weight:700;line-height:1.2}.exp-company{display:block;font-family:var(--font-titles);font-size:8.8pt;font-weight:600;color:var(--accent);line-height:1.3}.exp-date{flex:0 0 auto;font-size:7.9pt;color:var(--text-muted);font-style:italic;white-space:nowrap}
+.achievement-block{margin:0 0 2mm .7mm}.achievement-label{display:block;font-family:var(--font-titles);font-size:8.75pt;font-weight:700;line-height:1.3;margin-bottom:.25mm}.achievement-content{display:block;font-size:{{ layout.typography.body_pt }}pt;line-height:1.43;text-align:justify}
+.compact-section{margin-top:4.5mm}.leadership-item{margin-bottom:2.3mm}.leadership-title{display:block;color:var(--accent);font-family:var(--font-titles);font-size:8.85pt;font-weight:700;margin-bottom:.3mm}.leadership-desc{display:block;font-size:8.5pt;line-height:1.4;text-align:justify}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:9mm;row-gap:2.1mm}.edu-item{break-inside:avoid}.edu-degree{display:block;font-family:var(--font-titles);font-size:8.6pt;font-weight:700;line-height:1.25}.edu-meta{display:block;font-size:7.8pt;line-height:1.35;color:var(--text-muted);font-style:italic}
+.plain-body{font-size:8.6pt;line-height:1.45;text-align:justify}
+@media print{html,body{background:#fff}.resume-page{margin:0}.experience-item,.achievement-block,.edu-item{break-inside:avoid}}
+</style>
+</head>
+<body>
+{% set contact = namespace(value='') %}
+{% for candidate in content.pages[0].blocks %}{% if candidate.kind == 'summary' and candidate.title|lower == 'contact' %}{% set contact.value = candidate.body or '' %}{% endif %}{% endfor %}
+{% for page in content.pages %}
+<main class="resume-page" data-page="{{ loop.index }}">
+{% if loop.first %}<header class="top"><div class="header-left"><h1>{{ profile_name }}</h1><div class="headline">{{ content.headline }}</div></div><div class="header-right">{% for item in contact.value.split(' · ') %}<span>{{ item }}</span>{% endfor %}</div></header>{% endif %}
+{% set state = namespace(experience_seen=false) %}
+{% for block in page.blocks %}
+{% if block.kind == 'summary' and block.title|lower == 'contact' %}
+{% elif block.kind == 'summary' and block.title|lower in ['professional profile','profile','professional summary'] %}<section class="summary-block">{{ block.body }}</section>
+{% elif block.kind == 'skills' and block.title|lower in ['core expertise','core skills','expertise'] %}
+<section class="skills-container">{% for column in [block.bullets[:2], block.bullets[2:]] %}<div class="skill-column">{% if column %}<div class="skill-column-title">{{ ('产品策略与交付' if loop.first else '技术基础与行业能力') if content.language == 'zh' else ('Product Strategy & Delivery' if loop.first else 'Technical Foundation & Enablement') }}</div>{% endif %}{% for bullet in column %}<div class="skill-group">{% if bullet.display_label %}<span class="skill-subtitle">{{ bullet.display_label }}</span>{% endif %}{% if bullet.display_body %}<span class="skill-content">{{ bullet.display_body }}</span>{% endif %}</div>{% endfor %}</div>{% endfor %}</section>
+{% elif block.kind == 'experience' %}
+{% if not state.experience_seen and page is sameas content.pages[0] %}<h2>{{ '专业经历与产品成果' if content.language == 'zh' else 'Professional Experience & Product Milestones' }}</h2>{% endif %}{% set state.experience_seen = true %}{% set title_parts = block.title.split('|') %}
+<section class="experience-item"><div class="exp-header"><div>{% if title_parts|length >= 3 %}<span class="exp-title">{{ title_parts[1]|trim }}</span><span class="exp-company">{{ title_parts[0]|trim }}</span>{% else %}<span class="exp-title">{{ block.title }}</span>{% endif %}</div>{% if title_parts|length >= 3 %}<span class="exp-date">{{ title_parts[2]|trim }}</span>{% endif %}</div>{% if block.body %}<div class="plain-body">{{ block.body }}</div>{% endif %}{% for bullet in block.bullets %}<div class="achievement-block">{% if bullet.display_label %}<span class="achievement-label">{{ bullet.display_label }}</span>{% endif %}{% if bullet.display_body %}<span class="achievement-content">{{ bullet.display_body }}</span>{% endif %}</div>{% endfor %}</section>
+{% elif block.kind in ['project','skills'] %}
+<section class="block compact-section"><h2>{{ block.title }}</h2>{% if block.body %}<div class="plain-body">{{ block.body }}</div>{% endif %}{% for bullet in block.bullets %}<div class="leadership-item{% if block.kind == 'project' %} representative-system{% endif %}">{% if bullet.display_label %}<span class="leadership-title">{{ bullet.display_label }}</span>{% endif %}{% if bullet.display_body %}<span class="leadership-desc">{{ bullet.display_body }}</span>{% endif %}</div>{% endfor %}</section>
+{% elif block.kind == 'education' %}
+<section class="block compact-section"><h2>{{ block.title }}</h2><div class="edu-grid">{% for bullet in block.bullets %}{% set parts = bullet.text.split(' | ', 1) %}<div class="edu-item"><span class="edu-degree">{{ parts[0] }}</span>{% if parts|length > 1 %}<span class="edu-meta">{{ parts[1] }}</span>{% endif %}</div>{% endfor %}</div></section>
+{% endif %}
+{% endfor %}
+</main>
+{% endfor %}
+<script>document.querySelectorAll('.resume-page').forEach((p)=>{const r=p.getBoundingClientRect();const children=[...p.children];const lastBottom=children.length?Math.max(...children.map((child)=>child.getBoundingClientRect().bottom)):r.top;const fill=Math.max(0,Math.min(1,(lastBottom-r.top)/r.height));const minimum=p.dataset.page==='1'?{{ '%.3f'|format(layout.occupancy.minimum_fill_ratio[0]) }}:{{ '%.3f'|format(layout.occupancy.minimum_fill_ratio[1]) }};p.dataset.overflow=(p.scrollHeight>p.clientHeight+1)?'true':'false';p.dataset.fillRatio=fill.toFixed(3);p.dataset.underfilled=fill<minimum?'true':'false'});</script>
+</body>
+</html>

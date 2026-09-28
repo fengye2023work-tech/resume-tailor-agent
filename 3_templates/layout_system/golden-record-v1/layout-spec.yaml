@@ -1,0 +1,43 @@
+id: golden-record-v1
+
+# Public default layout contract. Private installations may maintain their own
+# approved screenshot baselines outside Git.
+page:
+  width_mm: 210
+  height_mm: 297
+  page_1_padding_mm: [8, 20, 3, 20]
+  page_2_padding_mm: [12, 20, 3, 20]
+
+palette:
+  paper: '#ffffff'
+  text_main: '#1f2937'
+  text_muted: '#4b5563'
+  accent: '#2563eb'
+  border: '#e5e7eb'
+
+spacing:
+  section_gap_mm: 5
+  item_gap_mm: 3.8
+
+typography:
+  identity_pt: 28
+  headline_pt: 10.5
+  section_pt: 11
+  summary_pt: 9
+  body_pt: 8.55
+
+occupancy:
+  minimum_fill_ratio: [0.86, 0.80]
+  target_fill_ratio: [0.92, 0.90]
+
+balance:
+  max_iterations: 8
+
+visual_regression:
+  enabled: false
+  baseline_pages: []
+  # Content varies per application, so regression compares coarse structural
+  # signatures rather than literal pixels or text glyphs.
+  max_bbox_delta: 0.055
+  max_profile_distance: 0.080
+  max_ink_density_delta: 0.065

@@ -1,0 +1,14 @@
+version: 1
+records:
+  - id: sample-general-zh-v1
+    language: zh
+    template_family: general
+    target_roles: [AI产品经理, AI解决方案架构师]
+    content: sample-general-zh-v1/resume-content.yaml
+    html: sample-general-zh-v1/owner-final.html
+  - id: sample-domain-owner-zh-v1
+    language: zh
+    template_family: domain
+    target_roles: [垂直领域AI产品负责人]
+    content: sample-domain-owner-zh-v1/resume-content.yaml
+    html: sample-domain-owner-zh-v1/owner-final.html
